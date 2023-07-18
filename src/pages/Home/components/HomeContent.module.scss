@@ -1,0 +1,56 @@
+.tagWrapper {
+  height: 70px;
+  padding: 10px;
+  overflow: auto;
+
+  .tag {
+    cursor: pointer;
+    color: #617172;
+
+    &:hover {
+      background-color: #5cb3cc;
+      color: #fff;
+    }
+  }
+}
+
+.Breadcrumb {
+  padding: 5px 10px;
+  color: #617172;
+}
+
+.listWrapper {
+  height: calc(100% - 125px);
+  padding: 10px;
+  overflow: auto;
+
+  .page {
+    border-bottom: 1px dashed #c9c9c9;
+
+    .pageTitle{
+      font-weight: 300;
+      cursor: pointer;
+      color: #617172 !important;
+
+      &:hover {
+        color: #158bb8 !important;
+      }
+    }
+    .pageDesc{
+      padding-bottom: 10px;
+      color: #617172;
+    }
+  }
+}
+
+.paginationWrapper {
+  .pagination {
+    float: right;
+    margin-right: 20px;
+
+    li {
+      border: none;
+      color: #617172;
+    }
+  }
+}

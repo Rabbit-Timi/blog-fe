@@ -1,4 +1,4 @@
-// import { BASEURL } from './src/constant/index.ts'
+// import { SERVER_URL } from './src/constant/index.ts'
 
 module.exports = {
   devServer: {

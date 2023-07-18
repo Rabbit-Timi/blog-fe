@@ -1,18 +1,17 @@
 import axios from 'axios'
 import { message } from 'antd'
 
-const instance = axios.create({
-  // baseURL: 'http://127.0.0.1/'
-})
+const instance = axios.create()
 
-// request 拦截器
-// instance.interceptors.request.use(
-//   config => {
-//     config.headers['Authorization'] = `Bearer ${getToken()}`
-//     return config
-//   },
-//   error => Promise.reject(error)
-// )
+export type ResType = {
+  errno: number
+  data?: ResDataType
+  msg?: string
+}
+
+export type ResDataType = {
+  [key: string]: any
+}
 
 // response 拦截器
 instance.interceptors.response.use(res => {
@@ -30,13 +29,3 @@ instance.interceptors.response.use(res => {
 })
 
 export default instance
-
-export type ResType = {
-  errno: number
-  data?: ResDataType
-  msg?: string
-}
-
-export type ResDataType = {
-  [key: string]: any
-}

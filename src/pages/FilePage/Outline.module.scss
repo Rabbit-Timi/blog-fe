@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: #fff;
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+
+  a {
+    cursor: pointer;
+    color: #617172 !important;
+
+    &:hover {
+      font-weight: bolder;
+      color: #158bb8 !important;
+    }
+  }
+  
+}
