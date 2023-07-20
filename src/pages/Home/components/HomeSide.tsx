@@ -2,81 +2,19 @@ import { Space, Image, Button, Divider, Typography } from 'antd'
 import React, { FC } from 'react'
 import styles from './HomeSide.module.scss'
 import { SERVER_URL } from '../../../constant/index'
+import { FilePageType } from '../../../utils/filePageType'
 
 const { Title } = Typography
 
-const HomeSide: FC = () => {
-  const imgUrl = `${SERVER_URL}Logo/Logo.jpg`
-  const classifyData = [
-    {
-      name: 'JAVA',
-      length: 20,
-    },
-    {
-      name: 'JS',
-      length: 10,
-    },
-    {
-      name: 'NodeJS',
-      length: 5,
-    },
-    {
-      name: 'CSS',
-      length: 100,
-    },
-    {
-      name: 'JAVA',
-      length: 20,
-    },
-    {
-      name: 'JS',
-      length: 10,
-    },
-    {
-      name: 'NodeJS',
-      length: 5,
-    },
-    {
-      name: 'CSS',
-      length: 100,
-    },
-    {
-      name: 'JAVA',
-      length: 20,
-    },
-    {
-      name: 'JS',
-      length: 10,
-    },
-    {
-      name: 'NodeJS',
-      length: 5,
-    },
-    {
-      name: 'CSS',
-      length: 100,
-    },
-    {
-      name: 'JAVA',
-      length: 20,
-    },
-    {
-      name: 'JS',
-      length: 10,
-    },
-    {
-      name: 'NodeJS',
-      length: 5,
-    },
-    {
-      name: 'CSS',
-      length: 100,
-    },
-  ]
+type PropsType = {
+  sideDir: FilePageType[]
+  handlerTagClick: (path: string) => void
+}
 
-  function handlerClick(data: any) {
-    console.log(data)
-  }
+const HomeSide: FC<PropsType> = (props: PropsType) => {
+  const { sideDir = [], handlerTagClick } = props
+  const imgUrl = `${SERVER_URL}Logo/Logo.jpg`
+  const classifyData = sideDir
 
   return (
     <>
@@ -99,11 +37,19 @@ const HomeSide: FC = () => {
           direction="vertical"
           style={{ display: 'flex' }}
         >
+          <div
+            className={styles.classify}
+            onClick={() => {
+              handlerTagClick('')
+            }}
+          >
+            <span>全部</span>
+          </div>
           {classifyData.map((data, index) => {
             return (
               <div
                 onClick={() => {
-                  handlerClick(data)
+                  handlerTagClick(data.filePath)
                 }}
                 className={styles.classify}
                 key={index}

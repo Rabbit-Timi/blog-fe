@@ -1,15 +1,33 @@
 import axios, { ResDataType } from './ajax'
 
 // 获取单个文件信息
-export async function getFileService(name: string): Promise<ResDataType> {
-  const url = `/api/file/getFile/${name}`
-  const data = (await axios.get(url)) as ResDataType
+export async function getFileService(filePath: string): Promise<ResDataType> {
+  const url = `/api/file/getFile`
+  const data = (await axios.get(url, { params: { filePath } })) as ResDataType
   return data
 }
 
 // 获取目录信息
 export async function getDirectoryService(): Promise<ResDataType> {
-  const url = `/api/file/getFileDirectory`
+  const url = `/api/file/getSideDirectory`
   const data = (await axios.get(url)) as ResDataType
+  return data
+}
+
+// 获取tags
+export async function getTagsService(path: string): Promise<ResDataType> {
+  const url = `/api/file/getTags`
+  const data = (await axios.get(url, { params: { path } })) as ResDataType
+  return data
+}
+
+// 获取文件列表
+export async function getFileListService(
+  path = '',
+  pageSize = 10,
+  pageNum = 1
+): Promise<ResDataType> {
+  const url = `/api/file/getFileList`
+  const data = (await axios.get(url, { params: { path, pageSize, pageNum } })) as ResDataType
   return data
 }

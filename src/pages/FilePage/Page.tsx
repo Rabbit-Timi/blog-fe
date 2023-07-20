@@ -5,7 +5,7 @@ import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import Outline, { TOCType } from './Outline'
 import styles from './Page.module.scss'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { getFileService } from '../../service/file'
 
@@ -14,9 +14,12 @@ const Page: FC = () => {
   const { name = '' } = useParams()
   const [html, setHtml] = useState('')
   const [toc, setToc] = useState<TOCType>([])
+  const [searchParams] = useSearchParams()
+  const filePath = searchParams.get('filePath') || ''
+  // console.log(filePath)
 
   // 请求 .md 数据
-  useRequest(async () => await getFileService(name), {
+  useRequest(async () => await getFileService(filePath), {
     onSuccess(res) {
       if (res) {
         setHtml(res.html)
@@ -52,7 +55,7 @@ const Page: FC = () => {
             })
           }
         }
-        console.log(tocArray)
+        // console.log(tocArray)
         setToc(tocArray)
       } else {
         nav('404')

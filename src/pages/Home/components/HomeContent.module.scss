@@ -17,6 +17,21 @@
 .Breadcrumb {
   padding: 5px 10px;
   color: #617172;
+  .BreadcrumbItem {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 22px;
+    font-weight: 400;
+
+    &:hover {
+      border-radius: 3px;
+      background-color: #f0f0f0;
+    }
+  }
+
+  span:nth-last-child(1) {
+    font-weight: 200;
+  }
 }
 
 .listWrapper {
@@ -46,6 +61,7 @@
 .paginationWrapper {
   .pagination {
     float: right;
+    padding-top: 5px;
     margin-right: 20px;
 
     li {

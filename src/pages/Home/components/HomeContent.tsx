@@ -1,304 +1,116 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './HomeContent.module.scss'
 import { Breadcrumb, Divider, Pagination, Space, Tag } from 'antd'
 import Title from 'antd/es/typography/Title'
-import { useNavigate } from 'react-router-dom'
 import { FILE_PAGE_PATH } from '../../../router'
 import { CLIENT_URL } from '../../../constant'
+import { FilePageType } from '../../../utils/filePageType'
 
-const HomeContent: FC = () => {
-  const nav = useNavigate()
-  const tagList = [
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc',
-      length: 20,
-    },
-    {
-      name: 'ertasdasd',
-      length: 5,
-    },
-    {
-      name: 'asc',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascsdf',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc',
-      length: 20,
-    },
-    {
-      name: 'ertasd',
-      length: 5,
-    },
-    {
-      name: 'ascsdf',
-      length: 20,
-    },
-    {
-      name: 'ertqwe',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'asc13123',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-    {
-      name: 'ascasdasd',
-      length: 20,
-    },
-    {
-      name: 'ert',
-      length: 5,
-    },
-  ]
+type PropsType = {
+  tagDir: FilePageType[]
+  filePageList: FilePageType[]
+  fatherPath: string
+  total: number
+  handlerPageChange: (path: string, pageSize?: number, pageNum?: number) => void
+  handlerTagClick: (path: string) => void
+}
 
-  const pageList = [
-    {
-      path: 'interview',
-      title: 'interview',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-    {
-      title: 'asdasd',
-      desc: '收到浮华不实的愤怒悲伤的那么腹背受敌减肥还是独家开发不是对方明尼苏达发生那么多分是电风扇等你们分手都买奶粉苏丹诺夫四大美女风水宝地父母苏丹诺夫什么地方',
-    },
-  ]
+const HomeContent: FC<PropsType> = (props: PropsType) => {
+  const {
+    tagDir = [],
+    filePageList = [],
+    fatherPath = '',
+    total = 0,
+    handlerTagClick,
+    handlerPageChange,
+  } = props
+  const [current, setCurrent] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  // const nav = useNavigate()
 
+  const pageList = filePageList
+
+  const array = fatherPath.split('/').filter(a => a != '')
   const breadItems = [
     {
-      title: 'Home',
-    },
-    {
-      title: '...',
-    },
-    {
-      title: <a href="">Application List</a>,
-    },
-    {
-      title: 'An Application',
+      title: '全部',
+      filePath: '',
     },
   ]
+  let breadItemsPath = ''
+  for (let i = 0; i < array.length; i++) {
+    breadItemsPath = breadItemsPath + '/' + array[i]
+    breadItems.push({
+      title: array[i],
+      filePath: breadItemsPath,
+    })
+  }
 
-  function PageTitleHandlerClick(page: any) {
-    console.log(page)
+  console.log(breadItems)
+
+  function PageTitleHandlerClick(page: FilePageType) {
+    const { name, filePath } = page
     const w = window.open('about:blank')
-    if (w) w.location.href = `${CLIENT_URL}${FILE_PAGE_PATH}${page.path}`
-    // nav(`${FILE_PAGE_PATH}${page.path}`)
+    if (w) w.location.href = `${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`
+    // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
+  }
+
+  useEffect(() => {
+    handlerPageChange(fatherPath, pageSize, current)
+  }, [current, pageSize])
+
+  function handlePageChange(page: number, pageSize: number) {
+    setCurrent(page)
+    setPageSize(pageSize)
+  }
+
+  function handlerBreadcrumbItemsClick(item: any) {
+    handlerTagClick(item.filePath)
   }
 
   return (
     <>
-      <Space align="center" className={styles.tagWrapper} size={[0, 'small']} wrap>
-        {tagList.map((tag, index) => {
+      <div style={{ display: tagDir.length > 0 ? '' : 'none' }}>
+        <Space align="center" className={styles.tagWrapper} size={[0, 'small']} wrap>
+          {tagDir.map((tag, index) => {
+            return (
+              <Tag
+                className={styles.tag}
+                key={index}
+                bordered={false}
+                onClick={() => {
+                  handlerTagClick(tag.filePath)
+                }}
+              >
+                {tag.name}({tag.length})
+              </Tag>
+            )
+          })}
+        </Space>
+        <Divider style={{ margin: '0' }} dashed />
+      </div>
+
+      <div className={styles.Breadcrumb}>
+        {breadItems.map((item, index) => {
           return (
-            <Tag className={styles.tag} key={index} bordered={false}>
-              {tag.name}
-            </Tag>
+            <span key={index}>
+              <span
+                className={styles.BreadcrumbItem}
+                onClick={() => {
+                  handlerBreadcrumbItemsClick(item)
+                }}
+              >
+                {item.title}
+              </span>
+              <span> / </span>
+            </span>
           )
         })}
-      </Space>
-      <Divider style={{ margin: '0' }} dashed />
-      <Breadcrumb className={styles.Breadcrumb} items={breadItems} />
-      <div className={styles.listWrapper}>
+      </div>
+      <div
+        className={styles.listWrapper}
+        style={{ height: tagDir.length > 0 ? 'calc(100% - 125px)' : 'calc(100% - 55px)' }}
+      >
         {pageList.map((page, index) => {
           return (
             <div
@@ -309,7 +121,7 @@ const HomeContent: FC = () => {
               }}
             >
               <Title className={styles.pageTitle} level={3}>
-                {page.title}
+                {page.name}
               </Title>
               <div className={styles.pageDesc}>
                 <span style={{ color: '#b0d5df' }}>摘要：</span>
@@ -322,10 +134,13 @@ const HomeContent: FC = () => {
       <div className={styles.paginationWrapper}>
         <Pagination
           className={styles.pagination}
-          size="small"
-          defaultCurrent={1}
-          total={50}
           showSizeChanger
+          size="small"
+          current={current}
+          pageSize={pageSize}
+          total={total}
+          pageSizeOptions={[5, 10, 15, 20]}
+          onChange={handlePageChange}
         />
       </div>
     </>
