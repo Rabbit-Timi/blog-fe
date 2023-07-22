@@ -1,16 +1,16 @@
+@import '../../styles/styles.scss';
 .wrapper {
-  background-color: #fff;
+  background-color: $bg-color;
   height: 100%;
   padding: 20px;
   overflow: auto;
 
   a {
     cursor: pointer;
-    color: #617172 !important;
+    color: $font-color !important;
 
     &:hover {
       font-weight: bolder;
-      color: #158bb8 !important;
     }
   }
   

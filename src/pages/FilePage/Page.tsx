@@ -11,7 +11,7 @@ import { getFileService } from '../../service/file'
 
 const Page: FC = () => {
   const nav = useNavigate()
-  const { name = '' } = useParams()
+  // const { name = '' } = useParams()
   const [html, setHtml] = useState('')
   const [toc, setToc] = useState<TOCType>([])
   const [searchParams] = useSearchParams()
@@ -19,7 +19,7 @@ const Page: FC = () => {
   // console.log(filePath)
 
   // 请求 .md 数据
-  useRequest(async () => await getFileService(filePath), {
+  const { loading } = useRequest(async () => await getFileService(filePath), {
     onSuccess(res) {
       if (res) {
         setHtml(res.html)
@@ -64,7 +64,7 @@ const Page: FC = () => {
   })
 
   return (
-    <Layout className={styles.wrapper} hasSider>
+    <Layout className={styles.wrapper} hasSider aria-disabled={loading}>
       <Sider className={styles.sider}>
         <Outline toc={toc} />
       </Sider>

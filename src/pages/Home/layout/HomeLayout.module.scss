@@ -1,5 +1,6 @@
+@import '../../../styles/styles.scss';
 .wrapper {
-  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+  background-image: $bg-img-color;
   height: 100vh;
   min-height: 700px;
 }
@@ -7,13 +8,13 @@
   height: 75px;
   width: 960px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: $bg-color;
   border-top: 0;
-  border-bottom: 1px solid #eef2f8;
+  border-bottom: 1px solid $border-color;
 }
 
 .mainStyle {
-  background-color: #fff;
+  background-color: $bg-color;
   width: 960px;
   margin: 0 auto;
   min-height: calc(100% - 125px);
@@ -24,14 +25,14 @@
   }
   
   .siderStyle {
-    background-color: #fff;
-    border-right: 1px solid #eef2f8;
+    background-color: $bg-color;
+    border-right: 1px solid $border-color;
   }
 }
 
 .footerStyle {
-  background-color: #fff;
-  border-top: 1px solid #eef2f8;
+  background-color: $bg-color;
+  border-top: 1px solid $border-color;
   font-size: 13px;
   text-align: center;
   padding: 15px 0;

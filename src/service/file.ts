@@ -3,7 +3,7 @@ import axios, { ResDataType } from './ajax'
 // 获取单个文件信息
 export async function getFileService(filePath: string): Promise<ResDataType> {
   const url = `/api/file/getFile`
-  const data = (await axios.get(url, { params: { filePath } })) as ResDataType
+  const data = (await axios.get(url, { params: { filePath }, timeout: 5000 })) as ResDataType
   return data
 }
 
@@ -29,5 +29,12 @@ export async function getFileListService(
 ): Promise<ResDataType> {
   const url = `/api/file/getFileList`
   const data = (await axios.get(url, { params: { path, pageSize, pageNum } })) as ResDataType
+  return data
+}
+
+// 文章浏览量
+export async function addPapersHits(path: string): Promise<ResDataType> {
+  const url = `/api/file/hits`
+  const data = (await axios.get(url, { params: { path } })) as ResDataType
   return data
 }

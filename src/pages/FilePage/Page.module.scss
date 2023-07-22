@@ -1,6 +1,8 @@
+@import '../../styles/styles.scss';
 .wrapper{
   .sider {
-    border-right: 1px solid #F5F5F5;
+    background-color: $bg-color;
+    border-right: 1px solid $border-color;
     height: 100vh;
   }
 

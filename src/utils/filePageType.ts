@@ -6,4 +6,5 @@ export type FilePageType = {
   children?: []
   desc?: string
   birthtime?: string
+  hitsCount?: number
 }

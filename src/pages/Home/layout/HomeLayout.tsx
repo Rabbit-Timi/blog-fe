@@ -16,6 +16,9 @@ const HomeLayout: FC = () => {
   const [filePageList, setFilePageList] = useState<FilePageType[]>([])
   const [total, setTotal] = useState(0)
   const [fatherPath, setFatherPath] = useState('')
+  const [current, setCurrent] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+
   const { loading: loadingSideDir } = useRequest(
     async () => {
       const res = await getDirectoryService()
@@ -59,17 +62,26 @@ const HomeLayout: FC = () => {
     }
   )
 
-  function handlerTagClick(path: string) {
-    changeTags(path)
-    getFileList(path)
+  useEffect(() => {
+    getFileList(fatherPath, pageSize, current)
+  }, [current, pageSize, fatherPath])
+
+  function handlePageSizeChange(page: number, pageSize: number) {
+    setCurrent(page)
+    setPageSize(pageSize)
   }
 
-  function handlerPageChange(path: string, pageSize?: number, pageNum?: number) {
-    getFileList(path, pageSize, pageNum)
+  function handlerTagClick(path: string) {
+    changeTags(path)
+    setFatherPath(path)
+    setCurrent(1)
   }
 
   return (
-    <Layout className={styles.wrapper}>
+    <Layout
+      className={styles.wrapper}
+      aria-disabled={loadingFileList && loadingSideDir && loadingTags}
+    >
       <Header className={styles.headerStyle}>
         <HomeHead />
       </Header>
@@ -83,8 +95,10 @@ const HomeLayout: FC = () => {
             filePageList={filePageList}
             total={total}
             fatherPath={fatherPath}
+            pageSize={pageSize}
+            current={current}
+            handlePageSizeChange={handlePageSizeChange}
             handlerTagClick={handlerTagClick}
-            handlerPageChange={handlerPageChange}
           />
         </Content>
       </Layout>

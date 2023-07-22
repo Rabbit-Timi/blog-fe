@@ -1,6 +1,7 @@
+@import '../../styles/styles.scss';
 pre.hljs {
-  background: #fbf3e8;
-  color: #000;
+  background: $pre-bg-color;
+  color: $code-font-color;
   padding: 12px 2px 12px 40px !important;
   border-radius: 5px !important;
   position: relative;
@@ -8,28 +9,7 @@ pre.hljs {
   line-height: 22px !important;
   overflow: hidden !important;
   code {
-    // display: block !important;
     margin: 0 10px !important;
-    // overflow-x: auto !important;
-    // &::-webkit-scrollbar {
-    //   z-index: 11;
-    //   width: 6px;
-    // }
-    // &::-webkit-scrollbar:horizontal {
-    //   height: 6px;
-    // }
-    // &::-webkit-scrollbar-thumb {
-    //   border-radius: 5px;
-    //   width: 6px;
-    //   background: #666;
-    // }
-    // &::-webkit-scrollbar-corner,&::-webkit-scrollbar-track {
-    //   background: #1E1E1E;
-    // }
-    // &::-webkit-scrollbar-track-piece {
-    //   background: #1E1E1E;
-    //   width: 6px
-    // }
   }
   .line-numbers-rows {
     position: absolute;
@@ -50,7 +30,7 @@ pre.hljs {
       counter-increment: linenumber;
       &:before {
         content: counter(linenumber);
-        color: #999;
+        color: $pre-info-color;
         display: block;
         text-align: center;
       }
@@ -61,7 +41,7 @@ pre.hljs {
     top: 2px;
     right: 80px;
     z-index: 10;
-    color: #999;
+    color: $pre-info-color;
     pointer-events: none;
   }
   .copy-btn {
@@ -69,9 +49,9 @@ pre.hljs {
     top: 2px;
     right: 4px;
     z-index: 10;
-    color: #999;
+    color: $pre-info-color;
     cursor: pointer;
-    background-color: #fff;
+    background-color: $bg-color;
     border: 0;
     border-radius: 5px;
   }
@@ -80,10 +60,10 @@ pre.hljs {
 pre {
   // width: 100vh;
   padding: 10px;
-  background-color: #fbf3e8;
+  background-color: $pre-bg-color;
   overflow: hidden;
   code {
-    background-color: #fbf3e8;
+    background-color: $pre-bg-color;
     width: 98%;
     padding: 0px;
     display: inline-block;
@@ -92,7 +72,8 @@ pre {
 }
 
 code {
-  background-color:rgba(27,31,35,.05);
+  color: $code-font-color !important;
+  background-color:$pre-bg-color;
   padding: 0.25rem 0.5rem;
   font-size: .85em;
   border-radius: 3px;
@@ -109,8 +90,8 @@ blockquote {
   margin-inline-start: 40px;
   margin-inline-end: 40px;
   font-size: 1rem;
-  color: #999;
-  border-left: 0.2rem solid #dfe2e5;
+  color: $pre-info-color;
+  border-left: 0.2rem solid $border-color;
   margin: 1rem 0;
   padding: 0.25rem 0 0.25rem 1rem;
 }
@@ -128,7 +109,7 @@ thead {
   border-color: inherit;
 
   tr {
-    background-color: #e0edfa;
+    background-color: $table-head-color;
   }
 }
 
@@ -139,7 +120,7 @@ tbody {
 }
 
 tr {
-  border-top: 1px solid #dfe2e5;
+  border-top: 1px solid $table-head-color;
 }
 
 tr {
@@ -149,11 +130,11 @@ tr {
 }
 
 tr:nth-child(2n) {
-  background-color: #f6f8fa;
+  background-color: $table-2-color;
 }
 
 td, th {
-  border: 1px solid #dfe2e5;
+  border: 1px solid $table-head-color;
   padding: 0.6em 1em;
 }
 

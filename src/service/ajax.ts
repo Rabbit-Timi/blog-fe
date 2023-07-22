@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { message } from 'antd'
 
-const instance = axios.create()
+const instance = axios.create({
+  // timeout: 5000,
+})
 
 export type ResType = {
   errno: number
@@ -22,7 +24,7 @@ instance.interceptors.response.use(res => {
     if (msg) {
       message.error(msg)
     }
-    // throw new Error(msg)
+    throw new Error(msg)
   }
 
   return data as any

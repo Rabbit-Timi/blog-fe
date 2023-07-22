@@ -13,7 +13,7 @@ type PropsType = {
 
 const HomeSide: FC<PropsType> = (props: PropsType) => {
   const { sideDir = [], handlerTagClick } = props
-  const imgUrl = `${SERVER_URL}Logo/Logo.jpg`
+  const imgUrl = `${SERVER_URL}/Logo/Logo.jpg`
   const classifyData = sideDir
 
   return (

@@ -1,3 +1,4 @@
+@import '../../../styles/styles.scss';
 .imageWrapper {
   text-align: center;
   .imageStyle {
@@ -7,17 +8,17 @@
 
 .divider {
   padding: 0px 10px;
-  color: #c4d7d6 !important;
+  color: $user-name-color  !important;
 }
 
 .noteSortWrapper {
   height: calc(100% - 210px);
   // overflow: hidden;
   .title{
-    border-left: 5px solid #5DD0C0;
+    border-left: 5px solid $sort-title-lateral-color;
 
     span {
-      color: #70887d;
+      color: $font-color;
       font-weight: 200;
       margin-left: 20px;
     }
@@ -29,12 +30,12 @@
 
     .classify{
       padding: 8px;
-      color: #617172;
+      color: $font-color;
 
       &:hover {
-        background-color: #c6e6e8;
+        background-color: $hover-bg-color;
         cursor: pointer;
-        color: #fff;
+        color: $hover-font-color;
         border-radius: 3px;
       }
 

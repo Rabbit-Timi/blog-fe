@@ -1,3 +1,5 @@
+@import '../../../styles/styles.scss';
+
 .tagWrapper {
   height: 70px;
   padding: 10px;
@@ -5,18 +7,18 @@
 
   .tag {
     cursor: pointer;
-    color: #617172;
+    color: $font-color;
 
     &:hover {
-      background-color: #5cb3cc;
-      color: #fff;
+      background-color: $hover-bg-color;
+      color: $hover-font-color;
     }
   }
 }
 
 .Breadcrumb {
   padding: 5px 10px;
-  color: #617172;
+  color: $font-color;
   .BreadcrumbItem {
     cursor: pointer;
     display: inline-block;
@@ -25,7 +27,8 @@
 
     &:hover {
       border-radius: 3px;
-      background-color: #f0f0f0;
+      background-color: $hover-bg-color;
+      color: $hover-font-color;
     }
   }
 
@@ -40,20 +43,33 @@
   overflow: auto;
 
   .page {
-    border-bottom: 1px dashed #c9c9c9;
+    border-bottom: 1px dashed $border-color;
 
     .pageTitle{
       font-weight: 300;
       cursor: pointer;
-      color: #617172 !important;
+      color: $font-color !important;
 
       &:hover {
-        color: #158bb8 !important;
+        font-weight: bold;
       }
     }
     .pageDesc{
       padding-bottom: 10px;
-      color: #617172;
+      color: $font-color;
+
+      .key {
+        color: $head-color;
+      }
+    }
+
+    .info{
+      display: flex;
+      justify-content: flex-end;
+      color: $font-color ;
+      span {
+        padding: 0 10px;
+      }
     }
   }
 }
@@ -66,7 +82,7 @@
 
     li {
       border: none;
-      color: #617172;
+      color: $font-color;
     }
   }
 }

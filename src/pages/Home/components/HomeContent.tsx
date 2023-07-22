@@ -1,18 +1,24 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import styles from './HomeContent.module.scss'
-import { Breadcrumb, Divider, Pagination, Space, Tag } from 'antd'
+import { Divider, Pagination, Space, Tag } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { FILE_PAGE_PATH } from '../../../router'
-import { CLIENT_URL } from '../../../constant'
+// import { CLIENT_URL } from '../../../constant'
 import { FilePageType } from '../../../utils/filePageType'
+import { useRequest } from 'ahooks'
+import { addPapersHits } from '../../../service/file'
+import { Link, useNavigate } from 'react-router-dom'
+import { EyeOutlined } from '@ant-design/icons'
 
 type PropsType = {
   tagDir: FilePageType[]
   filePageList: FilePageType[]
   fatherPath: string
   total: number
-  handlerPageChange: (path: string, pageSize?: number, pageNum?: number) => void
+  pageSize: number
+  current: number
   handlerTagClick: (path: string) => void
+  handlePageSizeChange: (page: number, pageSize: number) => void
 }
 
 const HomeContent: FC<PropsType> = (props: PropsType) => {
@@ -21,12 +27,12 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     filePageList = [],
     fatherPath = '',
     total = 0,
+    current = 1,
+    pageSize = 10,
     handlerTagClick,
-    handlerPageChange,
+    handlePageSizeChange,
   } = props
-  const [current, setCurrent] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-  // const nav = useNavigate()
+  const nav = useNavigate()
 
   const pageList = filePageList
 
@@ -46,22 +52,29 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     })
   }
 
-  console.log(breadItems)
+  // console.log(breadItems)
+
+  const { run: addHits, loading } = useRequest(
+    async (path: string) => {
+      const res = await addPapersHits(path)
+      return res
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        const { msg } = res
+        console.log(msg)
+      },
+    }
+  )
 
   function PageTitleHandlerClick(page: FilePageType) {
-    const { name, filePath } = page
-    const w = window.open('about:blank')
-    if (w) w.location.href = `${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`
+    const { filePath } = page
+    // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
+    addHits(filePath)
+    // getFileList(fatherPath)
+    // nav(0)
     // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-  }
-
-  useEffect(() => {
-    handlerPageChange(fatherPath, pageSize, current)
-  }, [current, pageSize])
-
-  function handlePageChange(page: number, pageSize: number) {
-    setCurrent(page)
-    setPageSize(pageSize)
   }
 
   function handlerBreadcrumbItemsClick(item: any) {
@@ -120,12 +133,21 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
                 PageTitleHandlerClick(page)
               }}
             >
-              <Title className={styles.pageTitle} level={3}>
-                {page.name}
-              </Title>
+              <Link target="_blank" to={`${FILE_PAGE_PATH}${page.name}?filePath=${page.filePath}`}>
+                <Title className={styles.pageTitle} level={3}>
+                  {page.name}
+                </Title>
+              </Link>
               <div className={styles.pageDesc}>
-                <span style={{ color: '#b0d5df' }}>摘要：</span>
+                <span className={styles.key}>摘要：</span>
                 <span>{page.desc}</span>
+              </div>
+              <div className={styles.info}>
+                <span>{page.birthtime?.slice(0, 10)}</span>
+                <span>
+                  <EyeOutlined></EyeOutlined>
+                  {page.hitsCount}
+                </span>
               </div>
             </div>
           )
@@ -140,7 +162,7 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
           pageSize={pageSize}
           total={total}
           pageSizeOptions={[5, 10, 15, 20]}
-          onChange={handlePageChange}
+          onChange={handlePageSizeChange}
         />
       </div>
     </>
