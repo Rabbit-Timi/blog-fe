@@ -3,7 +3,7 @@ import axios, { ResDataType } from './ajax'
 // 获取单个文件信息
 export async function getFileService(filePath: string): Promise<ResDataType> {
   const url = `/api/file/getFile`
-  const data = (await axios.get(url, { params: { filePath }, timeout: 5000 })) as ResDataType
+  const data = (await axios.get(url, { params: { filePath }, timeout: 50000 })) as ResDataType
   return data
 }
 
