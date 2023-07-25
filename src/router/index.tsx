@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import Home from '../pages/Home/Home'
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Home />,
   },
-  { path: 'FilePage/:name', element: <FilePage /> },
+  { path: 'FilePage/:name', Component: lazy(() => import('../pages/FilePage/Page')) },
   { path: '*', element: <NotFoundPage /> },
 ])
 
