@@ -8,10 +8,10 @@ import NotFoundPage from '../pages/NotFoundPage'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    Component: lazy(() => import('../pages/Home/Home')),
   },
   { path: 'FilePage/:name', Component: lazy(() => import('../pages/FilePage/Page')) },
-  { path: '*', element: <NotFoundPage /> },
+  { path: '*', Component: lazy(() => import('../pages/NotFoundPage')) },
 ])
 
 export default router
