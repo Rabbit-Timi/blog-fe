@@ -7,7 +7,7 @@ import Outline, { TOCType } from './Outline'
 import styles from './Page.module.scss'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
-import { getFileService } from '../../service/file'
+import { addPapersHits, getFileService } from '../../service/file'
 
 const Page: FC = () => {
   const nav = useNavigate()
@@ -19,7 +19,7 @@ const Page: FC = () => {
   // console.log(filePath)
 
   // 请求 .md 数据
-  const { loading } = useRequest(async () => await getFileService(filePath), {
+  useRequest(async () => await getFileService(filePath), {
     onSuccess(res) {
       if (res) {
         setHtml(res.html)
@@ -63,8 +63,22 @@ const Page: FC = () => {
     },
   })
 
+  useRequest(
+    async (path: string) => {
+      const res = await addPapersHits(path)
+      return res
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        const { msg } = res
+        console.log(msg)
+      },
+    }
+  )
+
   return (
-    <Layout className={styles.wrapper} hasSider aria-disabled={loading}>
+    <Layout className={styles.wrapper} hasSider>
       <Sider className={styles.sider}>
         <Outline toc={toc} />
       </Sider>

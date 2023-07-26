@@ -52,29 +52,29 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     })
   }
 
-  // console.log(breadItems)
-
-  const { run: addHits, loading } = useRequest(
-    async (path: string) => {
-      const res = await addPapersHits(path)
-      return res
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        const { msg } = res
-        console.log(msg)
-      },
-    }
-  )
+  // const { run: addHits, loading } = useRequest(
+  //   async (path: string) => {
+  //     const res = await addPapersHits(path)
+  //     return res
+  //   },
+  //   {
+  //     manual: true,
+  //     onSuccess(res) {
+  //       const { msg } = res
+  //       console.log(msg)
+  //     },
+  //   }
+  // )
 
   function PageTitleHandlerClick(page: FilePageType) {
-    const { filePath } = page
+    const { name, filePath } = page
     // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-    addHits(filePath)
+    // pageInfo(filePath)
+    // addHits(filePath)
     // getFileList(fatherPath)
     // nav(0)
     // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
+    console.log(filePath)
   }
 
   function handlerBreadcrumbItemsClick(item: any) {
@@ -133,6 +133,9 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
                 PageTitleHandlerClick(page)
               }}
             >
+              {/* <Title className={styles.pageTitle} level={3}>
+                {page.name}
+              </Title> */}
               <Link target="_blank" to={`${FILE_PAGE_PATH}${page.name}?filePath=${page.filePath}`}>
                 <Title className={styles.pageTitle} level={3}>
                   {page.name}
