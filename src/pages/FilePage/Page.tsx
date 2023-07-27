@@ -1,17 +1,18 @@
 import React, { FC, useState } from 'react'
 import FilePage from './FilePage'
-import { Layout } from 'antd'
+import { FloatButton, Layout, Popover, QRCode, Spin } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import Outline, { TOCType } from './Outline'
 import styles from './Page.module.scss'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { addPapersHits, getFileService } from '../../service/file'
+import { GithubOutlined, VerticalAlignTopOutlined, WechatOutlined } from '@ant-design/icons'
+import { GIT_HUB_URL, WECHAT_URL } from '../../constant'
 
 const Page: FC = () => {
   const nav = useNavigate()
-  // const { name = '' } = useParams()
   const [html, setHtml] = useState('')
   const [toc, setToc] = useState<TOCType>([])
   const [searchParams] = useSearchParams()
@@ -19,7 +20,7 @@ const Page: FC = () => {
   // console.log(filePath)
 
   // 请求 .md 数据
-  useRequest(async () => await getFileService(filePath), {
+  const { loading } = useRequest(async () => await getFileService(filePath), {
     onSuccess(res) {
       if (res) {
         setHtml(res.html)
@@ -78,14 +79,27 @@ const Page: FC = () => {
   )
 
   return (
-    <Layout className={styles.wrapper} hasSider>
-      <Sider className={styles.sider}>
-        <Outline toc={toc} />
-      </Sider>
-      <Content className={styles.content}>
-        <FilePage html={html}></FilePage>
-      </Content>
-    </Layout>
+    <Spin spinning={loading} size="large" tip="加载中...">
+      <Layout className={styles.wrapper} hasSider>
+        <Sider className={styles.sider}>
+          <Outline toc={toc} />
+        </Sider>
+        <Content id="top" className={styles.content}>
+          <FilePage html={html}></FilePage>
+        </Content>
+        <FloatButton.Group shape="circle" style={{ right: 24 }}>
+          <FloatButton target="_blank" href={GIT_HUB_URL} icon={<GithubOutlined />} />
+          <Popover
+            placement="left"
+            overlayInnerStyle={{ padding: 0 }}
+            content={<QRCode value={WECHAT_URL} />}
+          >
+            <FloatButton icon={<WechatOutlined />} />
+          </Popover>
+          <FloatButton href="#output" icon={<VerticalAlignTopOutlined />} />
+        </FloatButton.Group>
+      </Layout>
+    </Spin>
   )
 }
 

@@ -1,4 +1,4 @@
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
 import React, { FC, useEffect, useState } from 'react'
@@ -78,32 +78,31 @@ const HomeLayout: FC = () => {
   }
 
   return (
-    <Layout
-      className={styles.wrapper}
-      aria-disabled={loadingFileList && loadingSideDir && loadingTags}
-    >
-      <Header className={styles.headerStyle}>
-        <HomeHead />
-      </Header>
-      <Layout hasSider className={styles.mainStyle}>
-        <Sider className={styles.siderStyle}>
-          <HomeSide sideDir={sideDir} handlerTagClick={handlerTagClick} />
-        </Sider>
-        <Content className={styles.contentStyle}>
-          <HomeContent
-            tagDir={tagDir}
-            filePageList={filePageList}
-            total={total}
-            fatherPath={fatherPath}
-            pageSize={pageSize}
-            current={current}
-            handlePageSizeChange={handlePageSizeChange}
-            handlerTagClick={handlerTagClick}
-          />
-        </Content>
+    <Spin spinning={loadingFileList && loadingSideDir && loadingTags} size="large" tip="加载中...">
+      <Layout className={styles.wrapper}>
+        <Header className={styles.headerStyle}>
+          <HomeHead />
+        </Header>
+        <Layout hasSider className={styles.mainStyle}>
+          <Sider className={styles.siderStyle}>
+            <HomeSide sideDir={sideDir} handlerTagClick={handlerTagClick} />
+          </Sider>
+          <Content className={styles.contentStyle}>
+            <HomeContent
+              tagDir={tagDir}
+              filePageList={filePageList}
+              total={total}
+              fatherPath={fatherPath}
+              pageSize={pageSize}
+              current={current}
+              handlePageSizeChange={handlePageSizeChange}
+              handlerTagClick={handlerTagClick}
+            />
+          </Content>
+        </Layout>
+        <Footer className={styles.footerStyle}>Copyright © 2023</Footer>
       </Layout>
-      <Footer className={styles.footerStyle}>Copyright © 2023</Footer>
-    </Layout>
+    </Spin>
   )
 }
 
