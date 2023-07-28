@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import FilePage from './FilePage'
 import { FloatButton, Layout, Popover, QRCode, Spin } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import Outline, { TOCType } from './Outline'
 import styles from './Page.module.scss'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { addPapersHits, getFileService } from '../../service/file'
 import { GithubOutlined, VerticalAlignTopOutlined, WechatOutlined } from '@ant-design/icons'
@@ -19,61 +19,58 @@ const Page: FC = () => {
   const filePath = searchParams.get('filePath') || ''
   // console.log(filePath)
 
-  // 请求 .md 数据
-  const { loading } = useRequest(async () => await getFileService(filePath), {
-    onSuccess(res) {
-      if (res) {
-        setHtml(res.html)
+  useEffect(() => {
+    // TODO：生成大纲目录
+    const tocArray = []
+    const repeatRegex = /<(h\d).*?>.*?<\/h\d>/g
+    const idRegex = /id=".+"/
+    const nameRegex = /<\/a>.+<\/h\d>/
 
-        // TODO：生成大纲目录
-        const tocArray = []
-        const repeatRegex = /<(h\d).*?>.*?<\/h\d>/g
-        const idRegex = /id=".+"/
-        const nameRegex = /<\/a>.+<\/h\d>/
-
-        let dataStrRexArr
-        while ((dataStrRexArr = repeatRegex.exec(res.html))) {
-          // 提取 ID
-          const idArray = idRegex.exec(dataStrRexArr[0])
-          let id = ''
-          if (idArray) {
-            id = idArray[0].slice(4, idArray[0].length - 1)
-          }
-
-          // 提取 name
-          const nameArray = nameRegex.exec(dataStrRexArr[0])
-          let name = ''
-          if (nameArray) {
-            name = nameArray[0].slice(4, nameArray[0].length - 5)
-          }
-
-          if (id) {
-            tocArray.push({
-              level: dataStrRexArr[1],
-              name: name,
-              id: id,
-              str: dataStrRexArr[0],
-            })
-          }
-        }
-        // console.log(tocArray)
-        setToc(tocArray)
-      } else {
-        nav('404')
+    let dataStrRexArr
+    while ((dataStrRexArr = repeatRegex.exec(html))) {
+      // 提取 ID
+      const idArray = idRegex.exec(dataStrRexArr[0])
+      let id = ''
+      if (idArray) {
+        id = idArray[0].slice(4, idArray[0].length - 1)
       }
-    },
-  })
 
-  useRequest(
-    async (path: string) => {
-      const res = await addPapersHits(path)
+      // 提取 name
+      const nameArray = nameRegex.exec(dataStrRexArr[0])
+      let name = ''
+      if (nameArray) {
+        name = nameArray[0].slice(4, nameArray[0].length - 5)
+      }
+
+      if (id) {
+        tocArray.push({
+          level: dataStrRexArr[1],
+          name: name,
+          id: id,
+          str: dataStrRexArr[0],
+        })
+      }
+    }
+    // console.log(tocArray)
+    setToc(tocArray)
+  }, [html])
+
+  // 请求 .md 数据
+  const { loading } = useRequest(
+    async () => {
+      const res = await getFileService(filePath)
       return res
     },
     {
-      manual: true,
       onSuccess(res) {
-        const { msg } = res
-        console.log(msg)
+        if (res) {
+          setHtml(res.html)
+        } else {
+          nav('404')
+        }
+      },
+      onError() {
+        nav('404')
       },
     }
   )

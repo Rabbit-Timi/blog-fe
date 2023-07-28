@@ -5,10 +5,10 @@ import Title from 'antd/es/typography/Title'
 import { FILE_PAGE_PATH } from '../../../router'
 // import { CLIENT_URL } from '../../../constant'
 import { FilePageType } from '../../../utils/filePageType'
-import { useRequest } from 'ahooks'
-import { addPapersHits } from '../../../service/file'
 import { Link, useNavigate } from 'react-router-dom'
 import { EyeOutlined } from '@ant-design/icons'
+import { useRequest } from 'ahooks'
+import { addPapersHits } from '../../../service/file'
 
 type PropsType = {
   tagDir: FilePageType[]
@@ -52,25 +52,25 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     })
   }
 
-  // const { run: addHits, loading } = useRequest(
-  //   async (path: string) => {
-  //     const res = await addPapersHits(path)
-  //     return res
-  //   },
-  //   {
-  //     manual: true,
-  //     onSuccess(res) {
-  //       const { msg } = res
-  //       console.log(msg)
-  //     },
-  //   }
-  // )
+  const { run: addHits, loading } = useRequest(
+    async (path: string) => {
+      const res = await addPapersHits(path)
+      return res
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        const { msg } = res
+        console.log(msg)
+      },
+    }
+  )
 
   function PageTitleHandlerClick(page: FilePageType) {
     const { name, filePath } = page
     // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
     // pageInfo(filePath)
-    // addHits(filePath)
+    addHits(filePath)
     // getFileList(fatherPath)
     // nav(0)
     // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
