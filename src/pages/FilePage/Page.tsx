@@ -69,9 +69,9 @@ const Page: FC = () => {
           nav('404')
         }
       },
-      onError() {
-        nav('404')
-      },
+      // onError() {
+      //   nav('404')
+      // },
     }
   )
 
