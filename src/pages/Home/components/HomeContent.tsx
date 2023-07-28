@@ -52,30 +52,16 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     })
   }
 
-  const { run: addHits, loading } = useRequest(
-    async (path: string) => {
-      const res = await addPapersHits(path)
-      return res
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        const { msg } = res
-        console.log(msg)
-      },
-    }
-  )
-
-  function PageTitleHandlerClick(page: FilePageType) {
-    const { name, filePath } = page
-    // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-    // pageInfo(filePath)
-    addHits(filePath)
-    // getFileList(fatherPath)
-    // nav(0)
-    // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-    console.log(filePath)
-  }
+  // function PageTitleHandlerClick(page: FilePageType) {
+  //   const { name, filePath } = page
+  //   // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
+  //   // pageInfo(filePath)
+  //   addHits(filePath)
+  //   // getFileList(fatherPath)
+  //   // nav(0)
+  //   // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
+  //   console.log(filePath)
+  // }
 
   function handlerBreadcrumbItemsClick(item: any) {
     handlerTagClick(item.filePath)
@@ -126,13 +112,7 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
       >
         {pageList.map((page, index) => {
           return (
-            <div
-              className={styles.page}
-              key={index}
-              onClick={() => {
-                PageTitleHandlerClick(page)
-              }}
-            >
+            <div className={styles.page} key={index}>
               {/* <Title className={styles.pageTitle} level={3}>
                 {page.name}
               </Title> */}

@@ -65,13 +65,28 @@ const Page: FC = () => {
       onSuccess(res) {
         if (res) {
           setHtml(res.html)
+          addHits()
         } else {
           nav('404')
         }
       },
-      // onError() {
-      //   nav('404')
-      // },
+      onError() {
+        nav('404')
+      },
+    }
+  )
+
+  const { run: addHits, loading: addHitsLoading } = useRequest(
+    async () => {
+      const res = await addPapersHits(filePath)
+      return res
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        const { msg } = res
+        console.log(msg)
+      },
     }
   )
 
