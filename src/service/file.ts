@@ -35,6 +35,6 @@ export async function getFileListService(
 // 文章浏览量
 export async function addPapersHits(path: string): Promise<ResDataType> {
   const url = `/api/file/hits`
-  const data = (await axios.post(url, { params: { path } })) as ResDataType
+  const data = (await axios.post(url, { path })) as ResDataType
   return data
 }
