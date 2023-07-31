@@ -69,9 +69,9 @@ const Page: FC = () => {
           nav('404')
         }
       },
-      // onError() {
-      //   nav('404')
-      // },
+      onError() {
+        nav('404')
+      },
     }
   )
 
@@ -83,7 +83,7 @@ const Page: FC = () => {
     {
       onSuccess(res) {
         // const { msg } = res
-        // console.log(msg)
+        console.log(res)
       },
     }
   )
