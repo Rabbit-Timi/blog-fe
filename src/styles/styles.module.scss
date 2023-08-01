@@ -15,3 +15,7 @@ $pre-info-color: #999;
 
 $table-head-color: #dfe2e5;
 $table-2-color: #f6f8fa;
+
+:export {
+  headColor: $head-color;
+}

@@ -25,10 +25,13 @@ export async function getTagsService(path: string): Promise<ResDataType> {
 export async function getFileListService(
   path = '',
   pageSize = 10,
-  pageNum = 1
+  pageNum = 1,
+  searchParam = ''
 ): Promise<ResDataType> {
   const url = `/api/file/getFileList`
-  const data = (await axios.get(url, { params: { path, pageSize, pageNum } })) as ResDataType
+  const data = (await axios.get(url, {
+    params: { path, pageSize, pageNum, searchParam },
+  })) as ResDataType
   return data
 }
 

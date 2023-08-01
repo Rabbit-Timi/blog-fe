@@ -1,28 +1,35 @@
-@import '../../../styles/styles.scss';
+@import '../../../styles/styles.module.scss';
 
 .wrapper {
-  .title {
-    margin-top: 20px;
-    color: $head-color !important;
-    text-align: left;
-    display: inline-block;
+  margin-top: 10px;
+  .col_box{
+    display: flex;
+    align-items: center;
+    .title {
+      margin-bottom: 0px !important;
+      color: $head-color !important;
+      text-align: left;
+      // display: inline-block;
+    }
   }
-
-  .link {
-    position: relative;
-    left: 80%;
-    // padding-top: 30px;
-    color: $head-color;
-    font-size: 24px;
-    cursor: pointer;
-
-    .icon {
+  .col_box_end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .link {
       color: $head-color;
       font-size: 24px;
       cursor: pointer;
-      &:hover {
-        color: $hover-bg-color;
+  
+      .icon {
+        color: $head-color;
+        font-size: 24px;
+        cursor: pointer;
+        &:hover {
+          color: $hover-bg-color;
+        }
       }
     }
   }
 }
+

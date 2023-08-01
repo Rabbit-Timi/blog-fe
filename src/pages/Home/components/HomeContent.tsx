@@ -1,14 +1,15 @@
 import React, { FC } from 'react'
 import styles from './HomeContent.module.scss'
-import { Divider, Pagination, Space, Tag } from 'antd'
+import { ConfigProvider, Divider, Pagination, Space, Tag } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { FILE_PAGE_PATH } from '../../../router'
 // import { CLIENT_URL } from '../../../constant'
 import { FilePageType } from '../../../utils/filePageType'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { EyeOutlined } from '@ant-design/icons'
-import { useRequest } from 'ahooks'
-import { addPapersHits } from '../../../service/file'
+// import { useRequest } from 'ahooks'
+// import { addPapersHits } from '../../../service/file'
+import globalStyles from '../../../styles/styles.module.scss'
 
 type PropsType = {
   tagDir: FilePageType[]
@@ -32,7 +33,7 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     handlerTagClick,
     handlePageSizeChange,
   } = props
-  const nav = useNavigate()
+  // const nav = useNavigate()
 
   const pageList = filePageList
 
@@ -44,6 +45,13 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
     },
   ]
   let breadItemsPath = ''
+
+  const theme = {
+    token: {
+      colorPrimary: globalStyles.headColor,
+    },
+  }
+
   for (let i = 0; i < array.length; i++) {
     breadItemsPath = breadItemsPath + '/' + array[i]
     breadItems.push({
@@ -51,17 +59,6 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
       filePath: breadItemsPath,
     })
   }
-
-  // function PageTitleHandlerClick(page: FilePageType) {
-  //   const { name, filePath } = page
-  //   // window.open(`${CLIENT_URL}${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-  //   // pageInfo(filePath)
-  //   addHits(filePath)
-  //   // getFileList(fatherPath)
-  //   // nav(0)
-  //   // nav(`${FILE_PAGE_PATH}${name}?filePath=${filePath}`)
-  //   console.log(filePath)
-  // }
 
   function handlerBreadcrumbItemsClick(item: any) {
     handlerTagClick(item.filePath)
@@ -137,16 +134,18 @@ const HomeContent: FC<PropsType> = (props: PropsType) => {
         })}
       </div>
       <div className={styles.paginationWrapper}>
-        <Pagination
-          className={styles.pagination}
-          showSizeChanger
-          size="small"
-          current={current}
-          pageSize={pageSize}
-          total={total}
-          pageSizeOptions={[5, 10, 15, 20]}
-          onChange={handlePageSizeChange}
-        />
+        <ConfigProvider theme={theme}>
+          <Pagination
+            className={styles.pagination}
+            showSizeChanger
+            size="small"
+            current={current}
+            pageSize={pageSize}
+            total={total}
+            pageSizeOptions={[5, 10, 15, 20]}
+            onChange={handlePageSizeChange}
+          />
+        </ConfigProvider>
       </div>
     </>
   )

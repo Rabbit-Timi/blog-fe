@@ -18,6 +18,7 @@ const HomeLayout: FC = () => {
   const [fatherPath, setFatherPath] = useState('')
   const [current, setCurrent] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [searchParam, setSearchParam] = useState('')
 
   const { loading: loadingSideDir } = useRequest(
     async () => {
@@ -48,9 +49,9 @@ const HomeLayout: FC = () => {
   )
 
   const { run: getFileList, loading: loadingFileList } = useRequest(
-    async (path: string, pageSize?: number, pageNum?: number) => {
+    async (path: string, pageSize?: number, pageNum?: number, searchParam?: string) => {
       setFatherPath(path)
-      const res = await getFileListService(path, pageSize, pageNum)
+      const res = await getFileListService(path, pageSize, pageNum, searchParam)
       return res
     },
     {
@@ -63,8 +64,8 @@ const HomeLayout: FC = () => {
   )
 
   useEffect(() => {
-    getFileList(fatherPath, pageSize, current)
-  }, [current, pageSize, fatherPath])
+    getFileList(fatherPath, pageSize, current, searchParam)
+  }, [current, pageSize, fatherPath, searchParam])
 
   function handlePageSizeChange(page: number, pageSize: number) {
     setCurrent(page)
@@ -77,11 +78,16 @@ const HomeLayout: FC = () => {
     setCurrent(1)
   }
 
+  function handlerSearch(value: string) {
+    setSearchParam(value)
+    setCurrent(1)
+  }
+
   return (
     <Spin spinning={loadingFileList && loadingSideDir && loadingTags} size="large" tip="加载中...">
       <Layout className={styles.wrapper}>
         <Header className={styles.headerStyle}>
-          <HomeHead />
+          <HomeHead searchParam={searchParam} handlerSearch={handlerSearch} />
         </Header>
         <Layout hasSider className={styles.mainStyle}>
           <Sider className={styles.siderStyle}>
