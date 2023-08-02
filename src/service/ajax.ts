@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { message } from 'antd'
+import { SERVER_URL } from '../constant/index'
 
 const instance = axios.create({
-  baseURL: 'http://119.45.167.11:8888',
+  baseURL: SERVER_URL,
   // timeout: 5000,
 })
 
