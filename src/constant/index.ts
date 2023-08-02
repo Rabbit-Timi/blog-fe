@@ -1,5 +1,5 @@
 // 服务器地址
-export const SERVER_URL = 'http://119.45.167.11:8888'
+export const SERVER_URL = 'http://192.168.31.135:8888'
 
 // github
 export const GIT_HUB_URL = 'https://github.com/Rabbit-Timi'
